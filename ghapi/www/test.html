@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+	<meta http-equiv="Content-type" content="text/html; charset=UTF-8" />
+
+	<script src="https://cdn.jsdelivr.net/npm/sql.js@1.5.0/dist/sql-wasm.js"></script>
+
+</head>
+
+<body>
+
+	<button name="test" type="button" value="val" onclick="save()">Button Text</button>
+
+	<input id="uploadInput" type="file" onchange="getfile()">
+
+</body>
+
+<script>
+
+	function save() {
+		//Create the database
+		var db = new window.SQL.Database();
+		db.run("CREATE TABLE test (列1 int, 列2 char);");
+		db.run("INSERT INTO test VALUES (0,'hello');");
+		db.run("INSERT INTO test VALUES (1,'world');");
+		db.run("INSERT INTO test VALUES (55,'34534545');");
+		db.run("INSERT INTO test VALUES (166,'woteggrgrld');");
+
+		//save to local file
+		var data = db.export();
+		var arraybuff = data.buffer;
+		var blob = new Blob([arraybuff]);
+		var url = window.URL.createObjectURL(blob);
+		var a = document.createElement("a");
+		a.href = url;
+		a.download = 'test.db';
+		a.click();
+		window.URL.revokeObjectURL(url);
+	}
+
+
+
+
+	function getfile() {
+		initSqlJs({ locateFile: file => `https://cdn.jsdelivr.net/npm/sql.js@1.5.0/dist/${file}` }).then(function (SQL) {
+			var files = document.getElementById("uploadInput").files;//document.getElementById("uploadInput").value;
+			var file = files[0];
+			var fr = new FileReader();
+			fr.onload = function () {
+				var Uints = new Uint8Array(fr.result);
+				console.log('Uints: ', Uints);
+				var db = new SQL.Database(Uints);
+				console.log('db: ', db);
+				var res = db.exec("SELECT * from COMPANY");
+				console.log('res: ', res);
+
+				// for (i = 0; i < res[0].values.length; i++) {//query values
+				// 	console.log(res[0].values[i] + ' ');
+				// }
+			}
+
+			fr.readAsArrayBuffer(file);
+		});
+
+	}
+
+</script>
+
+
+
+</html>

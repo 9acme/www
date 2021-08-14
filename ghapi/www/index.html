@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>测试</title>
+  <!-- <script src="./xuni/bundle.js"></script> -->
+  <script src="../dist/ghapi.js"></script>
+</head>
+
+<body>
+  <script>
+    const gh = new ghApi.ghApi(atob('Z2hwX2hHS1plNWNCTGdLMUVLam1qMUxNWGQxVG02cFhJYzFydDB5Rg=='));
+
+
+
+    // gh.getSql('https://cdn.jsdelivr.net/gh/annarheimur/assets/consume/index1.sqlite', true);
+
+    // gh.getSql('https://raw.githubusercontent.com/Annarheimur/assets/master/consume/index1.sqlite', true);
+    // gh.getSql('https://api.github.com/repos/annarheimur/assets/contents/consume/index.sqlite');
+    gh.getSql('https://api.github.com/repos/Annarheimur/assets/git/blobs/9d2c167dd12070d83b164a51b42913db9aac6fad');
+  </script>
+</body>
+
+</html>
